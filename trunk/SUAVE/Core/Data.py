@@ -519,7 +519,17 @@ class Data(dict):
             for k in keys[:-1]:
                 data = data[k]
         
-        data[ keys[-1] ] = val
+        if keys[-1][-1] ==']':
+            splitkey = keys[-1].split('[')
+            thing = data[splitkey[0]]
+            for ii in range(1,len(splitkey)-1):
+                index    = int(splitkey[ii][:-1])
+                thing = thing[index]
+            index    = int(splitkey[-1][:-1])
+            thing[index] = val
+        else:
+            data[ keys[-1] ] = val
+
         
         return data
 

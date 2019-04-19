@@ -58,7 +58,10 @@ def compute_aircraft_center_of_gravity(vehicle, nose_load_fraction=.06):
         if 'vertical_stabilizer' in vehicle.wings:
                 v_tail             = vehicle.wings['vertical_stabilizer']  
                 v_tail_cg                 = v_tail.mass_properties.center_of_gravity
-                v_tail_moment             = (v_tail.origin+ v_tail_cg)*(v_tail.mass_properties.mass+v_tail.rudder.mass_properties.mass)
+                if 'rudder' in v_tail:
+                        v_tail_moment             = (v_tail.origin+ v_tail_cg)*(v_tail.mass_properties.mass+v_tail.rudder.mass_properties.mass)
+                else:
+                        v_tail_moment             = (v_tail.origin+ v_tail_cg)*(v_tail.mass_properties.mass)
         else:
                 v_tail_moment = 0
 
@@ -83,16 +86,16 @@ def compute_aircraft_center_of_gravity(vehicle, nose_load_fraction=.06):
                 landing_gear       = vehicle.landing_gear
                 propulsor_name     = list(vehicle.propulsors.keys())[0]
                 propulsor          = vehicle.propulsors[propulsor_name]
-                electrical_systems = vehicle.electrical_systems
-                avionics           = vehicle.avionics
-                furnishings        = vehicle.furnishings
-                passenger_weights  = vehicle.passenger_weights
-                air_conditioner    = vehicle.air_conditioner
-                fuel               = vehicle.fuel
-                apu                = vehicle.apu
-                hydraulics         = vehicle.hydraulics
-                optionals          = vehicle.optionals     
-                control_systems    = vehicle.control_systems 
+                electrical_systems = vehicle.systems.electrical_systems
+                avionics           = vehicle.systems.avionics
+                furnishings        = vehicle.systems.furnishings
+                passenger_weights  = vehicle.systems.passengers
+                air_conditioner    = vehicle.systems.air_conditioner
+                fuel               = vehicle.systems.fuel
+                apu                = vehicle.systems.apu
+                hydraulics         = vehicle.systems.hydraulics
+                optionals          = vehicle.systems.optionals     
+                control_systems    = vehicle.systems.control_systems 
 
                 # Control Sytems               
                 control_systems_cg        = control_systems.mass_properties.center_of_gravity
