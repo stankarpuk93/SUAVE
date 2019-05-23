@@ -89,6 +89,7 @@ def get_m(f_m, gamma, subsonic_flag):
 if __name__ == "__main__":
     gnew = get_m(0.25, 1.4, 1)
     T_o_Tt, P_o_Pt, rho_o_rhot, A_o_Astar, f_m = isentropic_relations(0.8, 1.4)
+    
 
 
 
